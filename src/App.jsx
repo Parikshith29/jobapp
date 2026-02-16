@@ -11,7 +11,7 @@ import ProofPage from './pages/ProofPage';
 function App() {
   return (
     <Router>
-      <div className="app-container" style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
+      <div className="app-container" style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', paddingTop: '80px' }}>
         <Navigation />
 
         <Routes>
