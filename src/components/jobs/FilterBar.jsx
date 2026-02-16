@@ -77,6 +77,14 @@ const FilterBar = ({ filters, setFilters }) => {
                 <option value="oldest">Oldest</option>
             </select>
 
+            <select name="status" value={filters.status} onChange={handleChange} style={selectStyle}>
+                <option value="">All Statuses</option>
+                <option value="Not Applied">Not Applied</option>
+                <option value="Applied">Applied</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Selected">Selected</option>
+            </select>
+
             <label style={{
                 display: 'flex',
                 alignItems: 'center',

@@ -1,11 +1,20 @@
 import React from 'react';
 
-const JobCard = ({ job, onSave, onView, isSaved }) => {
+const JobCard = ({ job, onSave, onView, isSaved, status, onStatusChange }) => {
     const getScoreColor = (score) => {
         if (score >= 80) return 'var(--success-color)';
         if (score >= 60) return 'var(--warning-color)';
         if (score >= 40) return 'var(--text-secondary)';
         return '#9e9e9e'; // Grey
+    };
+
+    const getStatusColor = (currentStatus) => {
+        switch (currentStatus) {
+            case 'Applied': return '#2196F3'; // Blue
+            case 'Rejected': return '#F44336'; // Red
+            case 'Selected': return '#4CAF50'; // Green
+            default: return 'var(--text-secondary)'; // Neutral
+        }
     };
 
     const hasScore = typeof job.matchScore === 'number';
@@ -14,7 +23,7 @@ const JobCard = ({ job, onSave, onView, isSaved }) => {
         <div style={{
             backgroundColor: 'var(--bg-secondary)',
             borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--border-color)',
+            border: `1px solid ${status && status !== 'Not Applied' ? getStatusColor(status) : 'var(--border-color)'}`,
             padding: 'var(--space-24)',
             display: 'flex',
             flexDirection: 'column',
@@ -24,15 +33,32 @@ const JobCard = ({ job, onSave, onView, isSaved }) => {
             transition: 'transform var(--transition-fast), box-shadow var(--transition-fast)',
             position: 'relative'
         }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.05)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
-            }}
+        // ... handlers ...
         >
+            {/* Status Badge/Selector */}
+            <div style={{ position: 'absolute', top: 'var(--space-16)', right: hasScore ? '100px' : 'var(--space-16)' }}>
+                <select
+                    value={status || 'Not Applied'}
+                    onChange={(e) => onStatusChange(job.id, e.target.value)}
+                    onClick={(e) => e.stopPropagation()} // Prevent card click
+                    style={{
+                        padding: '4px 8px',
+                        borderRadius: 'var(--radius-md)',
+                        border: '1px solid var(--border-color)',
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: 600,
+                        backgroundColor: '#FFF',
+                        color: getStatusColor(status),
+                        cursor: 'pointer'
+                    }}
+                >
+                    <option value="Not Applied">Not Applied</option>
+                    <option value="Applied">Applied</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Selected">Selected</option>
+                </select>
+            </div>
+
             {hasScore && (
                 <div style={{
                     position: 'absolute',
@@ -56,7 +82,7 @@ const JobCard = ({ job, onSave, onView, isSaved }) => {
                         fontWeight: 700,
                         margin: 0,
                         color: 'var(--text-primary)',
-                        paddingRight: hasScore ? '80px' : '0' // Make space for badge
+                        paddingRight: '120px' // Make space for badges
                     }}>
                         {job.title}
                     </h3>
