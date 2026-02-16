@@ -1,7 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
-import PlaceholderPage from './pages/PlaceholderPage';
+import LandingPage from './pages/LandingPage';
+import DashboardPage from './pages/DashboardPage';
+import SavedPage from './pages/SavedPage';
+import DigestPage from './pages/DigestPage';
+import SettingsPage from './pages/SettingsPage';
+import ProofPage from './pages/ProofPage';
 
 function App() {
   return (
@@ -10,12 +15,12 @@ function App() {
         <Navigation />
 
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
-          <Route path="/saved" element={<PlaceholderPage title="Saved Jobs" />} />
-          <Route path="/digest" element={<PlaceholderPage title="Daily Digest" />} />
-          <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
-          <Route path="/proof" element={<PlaceholderPage title="Proof Verification" />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/saved" element={<SavedPage />} />
+          <Route path="/digest" element={<DigestPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/proof" element={<ProofPage />} />
         </Routes>
       </div>
     </Router>
