@@ -1,0 +1,9 @@
+@import './styles/design-system.css';
+@import './styles/layout.css';
+
+/* Reset and Global Styles */
+html,
+body,
+#root {
+  height: 100%;
+}
