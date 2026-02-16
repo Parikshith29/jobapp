@@ -73,8 +73,27 @@ const FilterBar = ({ filters, setFilters }) => {
 
             <select name="sort" value={filters.sort} onChange={handleChange} style={selectStyle}>
                 <option value="latest">Latest</option>
+                <option value="match_score">Match Score</option>
                 <option value="oldest">Oldest</option>
             </select>
+
+            <label style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: 'var(--text-sm)',
+                color: 'var(--text-primary)',
+                cursor: 'pointer',
+                marginLeft: 'auto' // Push to right
+            }}>
+                <input
+                    type="checkbox"
+                    name="showOnlyMatches"
+                    checked={filters.showOnlyMatches}
+                    onChange={(e) => setFilters(prev => ({ ...prev, showOnlyMatches: e.target.checked }))}
+                />
+                Show only matches
+            </label>
         </div>
     );
 };
